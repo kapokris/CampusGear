@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CampusGear.Api/CampusGear.Api.csproj" />
+  <Project Path="CampusGear.Data/CampusGear.Data.csproj" />
+  <Project Path="CampusGear.Services/CampusGear.Services.csproj" />
+  <Project Path="CampusGear.Web/CampusGear.Web.csproj" />
+</Solution>

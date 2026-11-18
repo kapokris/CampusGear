@@ -1,0 +1,6 @@
+@CampusGear.Api_HostAddress = http://localhost:5170
+
+GET {{CampusGear.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
