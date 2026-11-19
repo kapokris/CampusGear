@@ -1,0 +1,62 @@
+﻿@model List<CampusGear.Web.Models.BookingDto>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2>My Bookings</h2>
+<hr />
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (Model.Count == 0 && ViewBag.ErrorMessage == null)
+{
+    <p>You currently have no bookings.</p>
+}
+else if (Model.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Equipment</th>
+                <th>Duration (Weeks)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.BookingId</td>
+                    <td>@booking.EquipmentName</td>
+                    <td>@booking.Duration</td>
+                    <td>
+                        @if (booking.Status.Equals("Approved", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-success">@booking.Status</span>
+                        }
+                        else if (booking.Status.Equals("Pending", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-warning text-dark">@booking.Status</span>
+                        }
+                        else if (booking.Status.Equals("Rejected", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-danger">@booking.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@booking.Status</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
