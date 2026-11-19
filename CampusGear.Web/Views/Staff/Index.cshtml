@@ -1,0 +1,37 @@
+@model List<CampusGear.Web.Models.StaffBookingDto>
+
+@{
+    ViewData["Title"] = "Staff Dashboard";
+}
+
+<h2>Pending Bookings</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Booking Id</th>
+            <th>User Id</th>
+            <th>Equipment Id</th>
+            <th>Duration (weeks)</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookingId</td>
+                <td>@item.UserId</td>
+                <td>@item.EquipmentId</td>
+                <td>@item.Duration</td>
+                <td>@item.Status</td>
+                <td>
+                    <form asp-action="Approve" asp-route-id="@item.BookingId" method="post">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
