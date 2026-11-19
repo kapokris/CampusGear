@@ -13,13 +13,43 @@ namespace CampusGear.Web.Controllers
         }
 
         // GET (/Equipment)
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string? search,
+            int? categoryId,
+            bool? available)
         {
             var equipment = await _client
                 .GetFromJsonAsync<List<EquipmentDto>>(
-                    "api/Equipment");
+                    "api/Equipment")
+                ?? new List<EquipmentDto>();
 
-            return View(equipment ?? new List<EquipmentDto>());
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                equipment = equipment
+                    .Where(e => e.EquipmentName.Contains(
+                        search, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            if (categoryId.HasValue)
+            {
+                equipment = equipment
+                    .Where(e => e.CategoryId == categoryId.Value)
+                    .ToList();
+            }
+
+            if (available.HasValue)
+            {
+                equipment = equipment
+                    .Where(e => e.IsAvailable == available.Value)
+                    .ToList();
+            }
+
+            ViewBag.Search = search;
+            ViewBag.CategoryId = categoryId;
+            ViewBag.Available = available;
+
+            return View(equipment);
         }
     }
 }

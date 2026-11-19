@@ -6,6 +6,54 @@
 <h2>Campus Equipment</h2>
 <hr />
 
+
+<form asp-controller="Equipment" asp-action="Index" method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label for="search" class="form-label">
+            Search Equipment
+        </label>
+        <input type="text"
+               id="search"
+               name="search"
+               value="@ViewBag.Search"
+               class="form-control"
+               placeholder="Enter equipment name"
+            />
+    </div>
+
+    <div class="col-md-3">
+        <label for="categoryId" class="form-label">
+            Category ID
+        </label>
+        <input type="number"
+               id="categoryId"
+               name="categoryId"
+               value="@ViewBag.CategoryId"
+               class="form-control"
+               min="1"
+               placeholder="All categories"
+            />
+    </div>
+
+    <div class="col-md-3">
+        <label for="available" class="form-label">
+            Availability
+        </label>
+        <select id="available" name="available" class="form-select">
+            <option value="">All Equipment</option>
+            <option value="true" selected="@(ViewBag.Available == true)">Available</option>
+            <option value="false" selected="@(ViewBag.Available == false)">Unavailable</option>
+        </select>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+    </div>
+</form>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
