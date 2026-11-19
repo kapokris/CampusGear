@@ -1,0 +1,42 @@
+﻿@model List<CampusGear.Web.Models.EquipmentDto>
+@{
+    ViewData["Title"] = "Equipment";
+}
+
+<h2>Campus Equipment</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Equipment Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Condition</th>
+            <th>Availability</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EquipmentName</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Description</td>
+                <td>@item.Location</td>
+                <td>@item.Condition</td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <span class="badge bg-success">Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Unavailable</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
