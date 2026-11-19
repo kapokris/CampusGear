@@ -6,7 +6,7 @@ namespace CampusGear.Web.ViewModels
         [Required]
         public int EquipmentId { get; set; }
 
-        public string EquipmentName { get; set; } = string.Empty;
+        public string? EquipmentName { get; set; }
 
         [Required(ErrorMessage = "Please select a booking duration.")]
         [Range(1,4, ErrorMessage = "Duration must be between 1 and 4 weeks.")]

@@ -7,11 +7,18 @@
 <h2>My Bookings</h2>
 <hr />
 
-@if (Model.Count == 0)
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (Model.Count == 0 && ViewBag.ErrorMessage == null)
 {
     <p>You currently have no bookings.</p>
 }
-else
+else if (Model.Count > 0)
 {
     <table class="table table-striped">
         <thead>
@@ -30,7 +37,24 @@ else
                     <td>@booking.BookingId</td>
                     <td>@booking.EquipmentName</td>
                     <td>@booking.Duration</td>
-                    <td>@booking.Status</td>
+                    <td>
+                        @if (booking.Status.Equals("Approved", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-success">@booking.Status</span>
+                        }
+                        else if (booking.Status.Equals("Pending", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-warning text-dark">@booking.Status</span>
+                        }
+                        else if (booking.Status.Equals("Rejected", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <span class="badge bg-danger">@booking.Status</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">@booking.Status</span>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

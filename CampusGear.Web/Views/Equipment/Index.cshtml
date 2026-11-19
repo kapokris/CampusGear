@@ -6,6 +6,27 @@
 <h2>Campus Equipment</h2>
 <hr />
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 
 <form asp-controller="Equipment" asp-action="Index" method="get" class="row g-3 mb-4">
     <div class="col-md-4">
@@ -53,49 +74,57 @@
     </div>
 </form>
 
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Equipment Name</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Condition</th>
-            <th>Availability</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Count == 0 && ViewBag.ErrorMessage == null)
+{
+    <div class="alert alert-info" role="alert">
+        No equipment matches your search criteria.
+    </div>
+}
+else if (Model.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@item.EquipmentName</td>
-                <td>@item.CategoryName</td>
-                <td>@item.Description</td>
-                <td>@item.Location</td>
-                <td>@item.Condition</td>
-                <td>
-                    @if (item.IsAvailable)
-                    {
-                        <span class="badge bg-success">Available</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger">Unavailable</span>
-                    }
-                </td>
-                <td>
-                    @if (item.IsAvailable)
-                    {
-                        <a asp-controller="Equipment" asp-action="Book" asp-route-id="@item.EquipmentId" class="btn btn-primary btn-sm">Book</a>
-                    }
-                    else
-                    {
-                        <span class="text-muted">Unavailable</span>
-                    }
-                </td>
+                <th>Equipment Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Condition</th>
+                <th>Availability</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.EquipmentName</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Description</td>
+                    <td>@item.Location</td>
+                    <td>@item.Condition</td>
+                    <td>
+                        @if (item.IsAvailable)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Unavailable</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsAvailable)
+                        {
+                            <a asp-controller="Equipment" asp-action="Book" asp-route-id="@item.EquipmentId" class="btn btn-primary btn-sm">Book</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Unavailable</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
