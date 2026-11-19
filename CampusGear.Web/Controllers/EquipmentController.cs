@@ -120,13 +120,22 @@ namespace CampusGear.Web.Controllers
             return View(model);
         }
 
+        // GET (/Equipment/MyBookings
+        public async Task<IActionResult> MyBookings()
+        {
+            var bookings = await _client
+                .GetFromJsonAsync<List<BookingDto>>("api/Bookings/mine") ?? new List<BookingDto>();
+
+            return View(bookings);
+        }
+
         // Helper method
         private async Task LoadEquipmentName(BookingViewModel model)
         {
             var equipment = await _client
                 .GetFromJsonAsync<EquipmentDto>($"api/Equipment/{model.EquipmentId}");
 
-            model.EquipmentName = equipment.EquipmentName ?? "Selected Equipment";
+            model.EquipmentName = equipment?.EquipmentName ?? "Selected Equipment";
         }
     }
 }

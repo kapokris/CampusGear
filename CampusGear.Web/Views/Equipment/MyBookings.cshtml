@@ -1,0 +1,38 @@
+﻿@model List<CampusGear.Web.Models.BookingDto>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2>My Bookings</h2>
+<hr />
+
+@if (Model.Count == 0)
+{
+    <p>You currently have no bookings.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Equipment</th>
+                <th>Duration (Weeks)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.BookingId</td>
+                    <td>@booking.EquipmentName</td>
+                    <td>@booking.Duration</td>
+                    <td>@booking.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
