@@ -63,6 +63,7 @@
             <th>Location</th>
             <th>Condition</th>
             <th>Availability</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -82,6 +83,16 @@
                     else
                     {
                         <span class="badge bg-danger">Unavailable</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <a asp-controller="Equipment" asp-action="Book" asp-route-id="@item.EquipmentId" class="btn btn-primary btn-sm">Book</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Unavailable</span>
                     }
                 </td>
             </tr>

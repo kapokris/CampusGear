@@ -1,0 +1,38 @@
+﻿@model CampusGear.Web.ViewModels.BookingViewModel
+
+@{
+    ViewData["Title"] = "Book Equipment";
+}
+
+<h2>Book Equipment</h2>
+<hr />
+
+<h4>@Model.EquipmentName</h4>
+
+<form asp-controller="Equipment" asp-action="Book" method="post">
+    <input type="hidden" asp-for="EquipmentId" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Duration" class="form-label"></label>
+
+        <select asp-for="Duration" class="form-select">
+            <option value="">Select Duration</option>
+            <option value="1">1 Week</option>
+            <option value="2">2 Weeks</option>
+            <option value="3">3 Weeks</option>
+            <option value="4">4 Weeks</option>
+        </select>
+
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Submit Booking
+    </button>
+
+    <a asp-controller="Equipment" asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
